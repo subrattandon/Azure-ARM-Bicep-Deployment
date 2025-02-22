@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "StorageAccountTier": {
+            "type": "string",
+            "metadata": {
+                "description": "avoiding hardcoded"
+            },
+
+            "defaultValue": "Premium" ,
+            "allowedValues": [ 
+            "Premium" ,
+            "standard"
+            ]
+        }
+    },
+    "functions": [],
+    "variables": {
+        "resources": "arm123"
+    },
+    "resources": [
+        {
+            "name": "[variables('resources')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2023-05-01",
+            "tags": {
+                "displayName": "arm123"
+            },
+            "location": "[resourceGroup().location]",
+            "kind": "StorageV2",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "[parameters('StorageAccountTier')]"
+            }
+        }
+    ],
+    "outputs": {}
+}
